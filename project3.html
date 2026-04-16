@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QUICK FOOD - Premium Delivery</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ---------- Base & Reset ---------- */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: #0a0f1a;
+            color: #eee;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1400px;
+            margin: auto;
+        }
+        /* ---------- Powerful Animated Header ---------- */
+        
+        header {
+            position: relative;
+            padding: 130px 0;
+            text-align: center;
+            border-bottom-left-radius: 40px;
+            border-bottom-right-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            z-index: 0;
+            animation: kenBurnsZoom 20s infinite alternate ease-in-out;
+        }
+        
+        header::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(10, 15, 26, 0.3) 0%, rgba(10, 15, 26, 0.95) 100%);
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        @keyframes kenBurnsZoom {
+            0% {
+                transform: scale(1) translate(0, 0);
+            }
+            100% {
+                transform: scale(1.15) translate(-10px, -10px);
+            }
+        }
+        
+        header .container {
+            position: relative;
+            z-index: 2;
+        }
+        
+        header h1 {
+            font-size: 3.8rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, #fff, #ffb199);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5);
+            animation: fadeInDown 0.8s ease forwards;
+        }
+        
+        header p.subtitle {
+            font-size: 1.2rem;
+            font-weight: 400;
+            margin-bottom: 35px;
+            color: #fff;
+            text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.8);
+            animation: fadeInDown 1s ease forwards;
+        }
+        
+        header input[type="text"] {
+            padding: 16px 24px;
+            width: 100%;
+            max-width: 550px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(0, 0, 0, 0.4);
+            color: #fff;
+            font-size: 1.1rem;
+            backdrop-filter: blur(12px);
+            outline: none;
+            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+            animation: fadeInUp 1.2s ease forwards;
+        }
+        
+        header input[type="text"]:focus {
+            background: rgba(0, 0, 0, 0.6);
+            border-color: #ff6f61;
+            box-shadow: 0 0 25px rgba(255, 111, 97, 0.4);
+            transform: scale(1.03);
+        }
+        /* ---------- Horizontal Premium Drag Scroll ---------- */
+        
+        section {
+            padding: 60px 0;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        .section-header h2 {
+            font-size: 2.2rem;
+            font-weight: 600;
+        }
+        
+        .scroll-wrapper {
+            position: relative;
+            width: 100%;
+        }
+        
+        .carousel {
+            display: flex;
+            overflow-x: auto;
+            gap: 25px;
+            padding-bottom: 30px;
+            scrollbar-width: none;
+            cursor: grab;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        
+        .carousel:active {
+            cursor: grabbing;
+        }
+        
+        .carousel::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .scroll-btn {
+            position: absolute;
+            top: 40%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .scroll-btn:hover {
+            background: #ff6f61;
+            transform: translateY(-50%) scale(1.15);
+            border-color: #ff6f61;
+        }
+        
+        .scroll-left {
+            left: -15px;
+        }
+        
+        .scroll-right {
+            right: -15px;
+        }
+        /* ---------- Dynamic Cards ---------- */
+        
+        .card {
+            flex: 0 0 auto;
+            width: 320px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            position: relative;
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+        
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: skewX(-20deg);
+            transition: 0.5s;
+            z-index: 5;
+            pointer-events: none;
+        }
+        
+        .card:hover::before {
+            left: 150%;
+        }
+        
+        .card:hover {
+            transform: translateY(-12px);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 111, 97, 0.2);
+            border-color: rgba(255, 111, 97, 0.4);
+        }
+        
+        .card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+            pointer-events: none;
+        }
+        
+        .card:hover img {
+            transform: scale(1.08);
+        }
+        
+        .card-info {
+            padding: 22px;
+            position: relative;
+            z-index: 2;
+            background: #0a0f1a;
+        }
+        
+        .card h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .card p {
+            color: #aaa;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+        
+        .price-tag {
+            font-size: 1.2rem;
+            color: #ff6f61;
+            font-weight: 700;
+        }
+        
+        .btn {
+            padding: 12px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            border: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-add {
+            width: 100%;
+            background: rgba(255, 111, 97, 0.1);
+            color: #ff6f61;
+            border: 1px solid rgba(255, 111, 97, 0.3);
+            margin-top: 10px;
+        }
+        
+        .btn-add:hover {
+            background: #ff6f61;
+            color: #fff;
+            transform: scale(1.03);
+        }
+        
+        .back-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            margin-bottom: 25px;
+            display: inline-block;
+        }
+        
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(-5px);
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        /* ---------- Boom Animation for Menu Items ---------- */
+        
+        @keyframes boomEntrance {
+            0% {
+                opacity: 0;
+                transform: scale(0.3) translateY(50px);
+            }
+            60% {
+                opacity: 1;
+                transform: scale(1.05) translateY(-10px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+        
+        .boom-anim {
+            opacity: 0;
+            animation: boomEntrance 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+        /* ---------- Cart Slide-In ---------- */
+        
+        .cart-open-btn {
+            position: fixed;
+            right: 30px;
+            bottom: 30px;
+            background: linear-gradient(135deg, #ff6f61, #ffb199);
+            color: #000;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            z-index: 990;
+            box-shadow: 0 10px 30px rgba(255, 111, 97, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        
+        .cart-open-btn:hover {
+            transform: scale(1.08) translateY(-5px);
+        }
+        
+        .cart-open-btn span {
+            background: #000;
+            color: #fff;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .cart-panel {
+            position: fixed;
+            right: -450px;
+            top: 0;
+            height: 100vh;
+            width: 100%;
+            max-width: 420px;
+            background: rgba(10, 15, 26, 0.98);
+            backdrop-filter: blur(20px);
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: -15px 0 50px rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            transition: right 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .cart-panel.open {
+            right: 0;
+        }
+        
+        .cart-header {
+            padding: 25px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .cart-close {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .cart-close:hover {
+            color: #ff6f61;
+        }
+        
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 25px;
+        }
+        
+        .cart-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 12px;
+            border-radius: 15px;
+        }
+        
+        .cart-row img {
+            width: 65px;
+            height: 65px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+        
+        .qty button {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: #fff;
+            padding: 5px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        
+        .qty button:hover {
+            background: #ff6f61;
+        }
+        
+        .cart-summary {
+            padding: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #ff6f61, #ffb199);
+            color: #000;
+            width: 100%;
+            padding: 16px;
+            font-size: 1.1rem;
+        }
+        
+        .cart-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            z-index: 998;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s;
+        }
+        
+        .cart-backdrop.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+        /* ---------- Order Success Modal ---------- */
+        
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+        
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .success-modal {
+            background: #111827;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            padding: 50px 40px;
+            text-align: center;
+            width: 90%;
+            max-width: 450px;
+            transform: scale(0.5);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), 0 0 40px rgba(40, 167, 69, 0.2);
+        }
+        
+        .modal-overlay.active .success-modal {
+            transform: scale(1);
+            opacity: 1;
+        }
+        
+        .check-circle {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, #28a745, #20c997);
+            border-radius: 50%;
+            margin: 0 auto 25px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 30px rgba(40, 167, 69, 0.4);
+            animation: pulseGreen 2s infinite;
+        }
+        
+        .check-circle svg {
+            width: 45px;
+            height: 45px;
+            color: white;
+        }
+        
+        @keyframes pulseGreen {
+            0% {
+                box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 20px rgba(40, 167, 69, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(40, 167, 69, 0);
+            }
+        }
+        
+        .success-modal h2 {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+        
+        .success-modal p {
+            color: #aaa;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+        
+        .success-modal .btn {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1rem;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+        
+        .success-modal .btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: 50px;
+            color: #666;
+        }
+        
+        @media (max-width: 768px) {
+            .scroll-btn {
+                display: none;
+            }
+            header h1 {
+                font-size: 2.5rem;
+            }
+            .card {
+                width: 280px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="container">
+            <h1>QUICK FOOD</h1>
+            <p class="subtitle">Fresh Organic Food, Delivered Fast.</p>
+            <input type="text" id="search" placeholder="Search for restaurants or dishes..." onkeyup="searchRestaurants()">
+        </div>
+    </header>
+
+    <section id="restaurants">
+        <div class="container">
+            <div class="section-header">
+                <h2>Top Restaurants</h2>
+            </div>
+            <div class="scroll-wrapper">
+                <button class="scroll-btn scroll-left" onclick="scrollCarousel('restaurant-carousel', -340)">&#10094;</button>
+                <div id="restaurant-carousel" class="carousel"></div>
+                <button class="scroll-btn scroll-right" onclick="scrollCarousel('restaurant-carousel', 340)">&#10095;</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="menu-section" class="hidden">
+        <div class="container">
+            <button onclick="goBack()" class="btn back-btn">&#8592; Back to Restaurants</button>
+            <div class="section-header">
+                <h2 id="restaurant-name">Restaurant Menu</h2>
+            </div>
+            <div class="scroll-wrapper">
+                <button class="scroll-btn scroll-left" onclick="scrollCarousel('menu-carousel', -340)">&#10094;</button>
+                <div id="menu-carousel" class="carousel"></div>
+                <button class="scroll-btn scroll-right" onclick="scrollCarousel('menu-carousel', 340)">&#10095;</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; Quick Food Delivery | Sahil Ahamad <br> onlysahil59@gmail.com</p>
+        </div>
+    </footer>
+
+    <button id="cart-open-btn" class="cart-open-btn">🛒 Cart <span id="cart-count">0</span></button>
+    <aside id="cart-panel" class="cart-panel">
+        <div class="cart-header">
+            <h3>Your Order</h3><button id="cart-close" class="cart-close">&times;</button></div>
+        <div id="cart-items" class="cart-items"></div>
+        <div class="cart-summary">
+            <div style="display:flex; justify-content:space-between; font-size:1.2rem; font-weight:700; margin-bottom:15px;">
+                <span>Total:</span><span id="cart-total">₹0</span>
+            </div>
+            <div style="display:flex; gap:10px;">
+                <button id="clear-cart" class="btn" style="background: rgba(255,255,255,0.1); color:#fff; flex:0.4;">Clear</button>
+                <button id="place-order" class="btn btn-primary" style="flex:1;">Place Order</button>
+            </div>
+        </div>
+    </aside>
+    <div id="cart-backdrop" class="cart-backdrop"></div>
+
+    <div id="success-modal-overlay" class="modal-overlay">
+        <div class="success-modal">
+            <div class="check-circle">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+            </div>
+            <h2>Order Placed!</h2>
+            <p>Your delicious food is being prepared and will be out for delivery shortly.</p>
+            <button class="btn" onclick="closeSuccessModal()">Track Order / Continue</button>
+        </div>
+    </div>
+
+    <script>
+        // ---------- Smart Menu Generator (Creates 20 items per restaurant) ----------
+        function generateMenuItems(baseFood, images, startPrice) {
+            const modifiers = ["Classic", "Spicy", "Premium", "Double", "Special", "Supreme", "Deluxe", "Ultimate", "Signature", "Chef's", "Rustic", "Loaded", "Smoked", "Crispy", "Grilled", "Homestyle", "Artisan", "Zesty", "Gourmet", "Royal"];
+            const items = [];
+            for (let i = 0; i < 20; i++) {
+                items.push({
+                    name: `${modifiers[i]} ${baseFood}`,
+                    price: (startPrice + (i * 15)).toString(),
+                    image: images[i % images.length] // Loop through provided images
+                });
+            }
+            return items;
+        }
+
+        // Image pools for generating 20 items
+        const imgPizza = ["https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=80", "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=600&q=80", "https://images.unsplash.com/photo-1628840042765-356cda07504e?w=600&q=80", "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&q=80"];
+        const imgIndian = ["https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=600&q=80", "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=600&q=80", "https://images.unsplash.com/photo-1610057099443-fde8c4d50f91?w=600&q=80"];
+        const imgBurger = ["https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&q=80", "https://images.unsplash.com/photo-1550547660-d9450f859349?w=600&q=80", "https://images.unsplash.com/photo-1594212699903-a8c2f8216111?w=600&q=80"];
+        const imgSalad = ["https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&q=80", "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600&q=80", "https://images.unsplash.com/photo-1525351484163-7529414344d8?w=600&q=80"];
+        const imgSushi = ["https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=600&q=80", "https://images.unsplash.com/photo-1553621042-f6e147245754?w=600&q=80", "https://images.unsplash.com/photo-1534480572688-66236b28373b?w=600&q=80"];
+        const imgMexican = ["https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=600&q=80", "https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?w=600&q=80", "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=600&q=80"];
+        const imgCafe = ["https://images.unsplash.com/photo-1497935586351-b67a49e012bf?w=600&q=80", "https://images.unsplash.com/photo-1534040385115-332cb8c67423?w=600&q=80", "https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=600&q=80"];
+        const imgDessert = ["https://images.unsplash.com/photo-1551024601-bec78aea704b?w=600&q=80", "https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?w=600&q=80", "https://images.unsplash.com/photo-1596450514735-111a2fe02935?w=600&q=80"];
+        const imgJuice = ["https://images.unsplash.com/photo-1623065422902-30a2d299bbe4?w=600&q=80", "https://images.unsplash.com/photo-1553530666-ba11a7da3888?w=600&q=80", "https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=600&q=80"];
+        const imgAsian = ["https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=600&q=80", "https://images.unsplash.com/photo-1552611052-33e04de081de?w=600&q=80", "https://images.unsplash.com/photo-1559314809-0d155014e29e?w=600&q=80"];
+
+        const restaurants = [{
+            id: 1,
+            name: "The Pizza Oven",
+            description: "Wood-fired authentic pizzas",
+            image: imgPizza[0],
+            menu: generateMenuItems("Pizza", imgPizza, 299)
+        }, {
+            id: 2,
+            name: "Tunday Legacy",
+            description: "Authentic Awadhi Cuisine",
+            image: imgIndian[0],
+            menu: generateMenuItems("Kabab & Biryani", imgIndian, 250)
+        }, {
+            id: 3,
+            name: "Burger Cartel",
+            description: "Juicy, loaded gourmet burgers",
+            image: imgBurger[0],
+            menu: generateMenuItems("Burger", imgBurger, 150)
+        }, {
+            id: 4,
+            name: "Green Bowl Healthy",
+            description: "Fresh salads & nutrition",
+            image: imgSalad[0],
+            menu: generateMenuItems("Bowl", imgSalad, 220)
+        }, {
+            id: 5,
+            name: "Tokyo Drift Sushi",
+            description: "Premium Japanese cuisine",
+            image: imgSushi[0],
+            menu: generateMenuItems("Roll", imgSushi, 450)
+        }, {
+            id: 6,
+            name: "El Toro Mexican",
+            description: "Spicy tacos & burritos",
+            image: imgMexican[0],
+            menu: generateMenuItems("Taco/Burrito", imgMexican, 199)
+        }, {
+            id: 7,
+            name: "Morning Brew Cafe",
+            description: "Coffee, pastries, & breakfast",
+            image: imgCafe[0],
+            menu: generateMenuItems("Roast & Bake", imgCafe, 120)
+        }, {
+            id: 8,
+            name: "Royal Sweets",
+            description: "Decadent cakes and sweets",
+            image: imgDessert[0],
+            menu: generateMenuItems("Dessert", imgDessert, 200)
+        }, {
+            id: 9,
+            name: "Fruit Fusion",
+            description: "Freshly squeezed smoothies",
+            image: imgJuice[0],
+            menu: generateMenuItems("Smoothie", imgJuice, 180)
+        }, {
+            id: 10,
+            name: "The Noodle Bar",
+            description: "Spicy wok and ramen",
+            image: imgAsian[0],
+            menu: generateMenuItems("Noodle Bowl", imgAsian, 280)
+        }];
+
+        // ---------- UI Renderers ----------
+        function displayRestaurants(dataToRender = restaurants) {
+            const carousel = document.getElementById('restaurant-carousel');
+            carousel.innerHTML = '';
+            dataToRender.forEach(restaurant => {
+                const div = document.createElement('div');
+                div.className = 'card';
+                div.onclick = (e) => {
+                    if (!isDragging) viewMenu(restaurant.id);
+                };
+                div.innerHTML = `
+                    <img src="${restaurant.image}" alt="${restaurant.name}">
+                    <div class="card-info">
+                        <h3>${restaurant.name}</h3>
+                        <p>${restaurant.description}</p>
+                    </div>
+                `;
+                carousel.appendChild(div);
+            });
+            initDragScroll(carousel);
+            initAutoScroll(carousel);
+        }
+
+        function viewMenu(restaurantId) {
+            const selected = restaurants.find(r => r.id === restaurantId);
+            if (!selected) return;
+
+            document.getElementById('restaurant-name').innerText = selected.name;
+            const carousel = document.getElementById('menu-carousel');
+            carousel.innerHTML = '';
+
+            selected.menu.forEach((item, idx) => {
+                const div = document.createElement('div');
+                // Add the boom-anim class with a staggered delay for the explosive entrance
+                div.className = 'card boom-anim';
+                div.style.animationDelay = `${idx * 0.08}s`;
+                div.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}">
+                    <div class="card-info">
+                        <h3>${item.name}</h3>
+                        <p class="price-tag">₹${item.price}</p>
+                        <button class="btn btn-add" onclick="event.stopPropagation(); addToCart(${restaurantId}, ${idx})">Add to Cart</button>
+                    </div>
+                `;
+                carousel.appendChild(div);
+            });
+
+            document.getElementById('restaurants').classList.add('hidden');
+            document.getElementById('menu-section').classList.remove('hidden');
+            document.getElementById('menu-section').scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+
+            initDragScroll(carousel);
+            initAutoScroll(carousel);
+        }
+
+        function goBack() {
+            document.getElementById('menu-section').classList.add('hidden');
+            document.getElementById('restaurants').classList.remove('hidden');
+            document.getElementById('restaurants').scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+
+        // ---------- Advanced Drag & Auto Scroll Logic ----------
+        let isDragging = false;
+        const scrollTimers = new Map();
+
+        function initDragScroll(slider) {
+            let startX, scrollLeft;
+            slider.addEventListener('mousedown', (e) => {
+                isDragging = false;
+                startX = e.pageX - slider.offsetLeft;
+                scrollLeft = slider.scrollLeft;
+                slider.style.scrollBehavior = 'auto';
+            });
+            slider.addEventListener('mouseleave', () => {
+                isDragging = false;
+                slider.style.scrollBehavior = 'smooth';
+            });
+            slider.addEventListener('mouseup', () => {
+                slider.style.scrollBehavior = 'smooth';
+            });
+            slider.addEventListener('mousemove', (e) => {
+                if (e.buttons !== 1) return;
+                isDragging = true;
+                e.preventDefault();
+                const x = e.pageX - slider.offsetLeft;
+                slider.scrollLeft = scrollLeft - ((x - startX) * 2);
+            });
+        }
+
+        function initAutoScroll(carousel) {
+            if (scrollTimers.has(carousel)) clearInterval(scrollTimers.get(carousel));
+            let isHovered = false;
+            carousel.addEventListener('mouseenter', () => isHovered = true);
+            carousel.addEventListener('mouseleave', () => isHovered = false);
+            carousel.addEventListener('touchstart', () => isHovered = true);
+            carousel.addEventListener('touchend', () => {
+                setTimeout(() => isHovered = false, 1000)
+            });
+
+            const timer = setInterval(() => {
+                if (!isHovered && !isDragging && carousel.offsetParent !== null) {
+                    carousel.style.scrollBehavior = 'auto';
+                    carousel.scrollBy({
+                        left: 1,
+                        behavior: 'auto'
+                    });
+                    if (carousel.scrollLeft + carousel.clientWidth >= carousel.scrollWidth - 1) {
+                        carousel.style.scrollBehavior = 'smooth';
+                        carousel.scrollTo({
+                            left: 0
+                        });
+                    }
+                }
+            }, 25);
+            scrollTimers.set(carousel, timer);
+        }
+
+        function scrollCarousel(id, distance) {
+            const container = document.getElementById(id);
+            container.style.scrollBehavior = 'smooth';
+            container.scrollBy({
+                left: distance
+            });
+        }
+
+        function searchRestaurants() {
+            const query = document.getElementById('search').value.toLowerCase();
+            const filtered = restaurants.filter(r =>
+                (r.name || '').toLowerCase().includes(query) || (r.description || '').toLowerCase().includes(query) ||
+                r.menu.some(m => (m.name || '').toLowerCase().includes(query))
+            );
+            if (!document.getElementById('menu-section').classList.contains('hidden')) goBack();
+            displayRestaurants(filtered);
+        }
+
+        // ---------- Cart & Order Modal Logic ----------
+        let cart = JSON.parse(localStorage.getItem('qf_cart') || '[]');
+
+        function saveCart() {
+            localStorage.setItem('qf_cart', JSON.stringify(cart));
+            renderCart();
+        }
+
+        function addToCart(restId, menuIndex) {
+            const rest = restaurants.find(r => r.id === restId);
+            const item = rest.menu[menuIndex];
+            const key = `${restId}-${item.name}`;
+            const existing = cart.find(c => c.key === key);
+            if (existing) existing.qty += 1;
+            else cart.push({
+                key,
+                restId,
+                name: item.name,
+                price: Number(item.price),
+                img: item.image,
+                qty: 1
+            });
+            saveCart();
+            openCart();
+        }
+
+        function renderCart() {
+            const qty = cart.reduce((s, c) => s + c.qty, 0);
+            document.getElementById('cart-count').innerText = qty;
+            const wrap = document.getElementById('cart-items');
+            wrap.innerHTML = '';
+
+            if (cart.length === 0) wrap.innerHTML = '<p style="text-align:center; color:#888; margin-top:30px;">Your cart is empty.</p>';
+
+            cart.forEach((c, i) => {
+                const row = document.createElement('div');
+                row.className = 'cart-row';
+                row.innerHTML = `
+                    <img src="${c.img}">
+                    <div class="meta" style="flex:1;"><h4>${c.name}</h4><p>₹${c.price}</p></div>
+                    <div class="qty" style="display:flex; align-items:center; gap:8px;">
+                        <button onclick="updateQty(${i}, -1)">-</button><span>${c.qty}</span><button onclick="updateQty(${i}, 1)">+</button>
+                    </div>
+                    <div style="font-weight:600; width:60px; text-align:right;">₹${c.price * c.qty}</div>
+                `;
+                wrap.appendChild(row);
+            });
+            document.getElementById('cart-total').innerText = '₹' + cart.reduce((s, c) => s + (c.price * c.qty), 0);
+        }
+
+        function updateQty(index, change) {
+            cart[index].qty += change;
+            if (cart[index].qty <= 0) cart.splice(index, 1);
+            saveCart();
+        }
+
+        const cartPanel = document.getElementById('cart-panel');
+        const cartBackdrop = document.getElementById('cart-backdrop');
+
+        function openCart() {
+            cartPanel.classList.add('open');
+            cartBackdrop.classList.add('open');
+            renderCart();
+        }
+
+        function closeCart() {
+            cartPanel.classList.remove('open');
+            cartBackdrop.classList.remove('open');
+        }
+
+        document.getElementById('cart-open-btn').addEventListener('click', openCart);
+        document.getElementById('cart-close').addEventListener('click', closeCart);
+        document.getElementById('cart-backdrop').addEventListener('click', closeCart);
+        document.getElementById('clear-cart').addEventListener('click', () => {
+            cart = [];
+            saveCart();
+        });
+
+        // Modal Logic
+        const modalOverlay = document.getElementById('success-modal-overlay');
+        document.getElementById('place-order').addEventListener('click', () => {
+            if (cart.length === 0) return alert('Your cart is empty!');
+            closeCart();
+            modalOverlay.classList.add('active'); // Show explosive success modal
+            cart = [];
+            saveCart(); // Clear cart after success
+        });
+
+        function closeSuccessModal() {
+            modalOverlay.classList.remove('active');
+            goBack(); // Return to main screen
+        }
+
+        // Init
+        displayRestaurants();
+        renderCart();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Food Delivery - Professional Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- RESET & GLOBAL --- */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            height: 100vh;
+            overflow: hidden;
+            /* Prevent scrolling for the full-page effect */
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        /* --- INTERACTIVE BACKGROUND --- */
+        
+        #background-image {
+            position: fixed;
+            top: -20px;
+            /* Offset for parallax */
+            left: -20px;
+            width: calc(100% + 40px);
+            height: calc(100% + 40px);
+            background-image: url('https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/d446ad61906217.5a7d98bb75817.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            z-index: -1;
+            filter: brightness(0.9);
+            will-change: transform;
+            /* Hint to browser for performance */
+        }
+        /* --- MAIN CONTAINER --- */
+        
+        .login-main {
+            display: flex;
+            width: 90%;
+            max-width: 1000px;
+            height: 550px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            opacity: 0;
+            transform: scale(0.9);
+            animation: containerAppear 0.6s ease-out 0.2s forwards;
+        }
+        
+        @keyframes containerAppear {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        /* --- LEFT SIDE (IMAGE - for LG) --- */
+        
+        .login-left {
+            flex: 1.2;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .login-left img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: left;
+        }
+        
+        .login-left .branding {
+            position: absolute;
+            bottom: 30px;
+            left: 30px;
+            color: #fff;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+            background-color: rgba(255, 107, 129, 0.8);
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+        
+        .login-left h2 {
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+        
+        .login-left p {
+            font-size: 0.9rem;
+            font-weight: 300;
+        }
+        /* --- RIGHT SIDE (FORM) --- */
+        
+        .login-right {
+            flex: 1;
+            padding: 50px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: left;
+            position: relative;
+        }
+        
+        .header-content {
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-weight: 700;
+            font-size: 2.3rem;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+        
+        .subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95rem;
+            font-weight: 300;
+        }
+        /* Form elements */
+        
+        form {
+            width: 100%;
+        }
+        
+        .form-group {
+            margin-bottom: 18px;
+            position: relative;
+        }
+        
+        label {
+            display: block;
+            color: #fff;
+            font-size: 0.85rem;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        input {
+            width: 100%;
+            padding: 13px 15px;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #ffa502;
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(255, 165, 2, 0.3);
+        }
+        /* Dynamic focus line for inputs */
+        
+        input+.focus-border {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #ffa502;
+            transition: width 0.4s ease;
+        }
+        
+        input:focus+.focus-border {
+            width: 100%;
+        }
+        /* BUTTONS */
+        
+        button {
+            width: 100%;
+            padding: 14px;
+            margin-top: 15px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        #getOtpBtn {
+            background-color: #ffa502;
+            /* Vibrant Orange for attention */
+        }
+        
+        #getOtpBtn:hover {
+            background-color: #ff9f43;
+            transform: scale(1.02);
+        }
+        
+        #loginBtn {
+            background-color: #28a745;
+            /* Modern Green for success */
+        }
+        
+        #loginBtn:hover {
+            background-color: #218838;
+            transform: scale(1.02);
+        }
+        
+        button:active {
+            transform: scale(0.98);
+        }
+        /* Smooth Reveal for OTP Section */
+        
+        #otpSection {
+            display: none;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+            margin-bottom: 0;
+            /* Reset */
+        }
+        
+        #otpSection.show {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+            margin-bottom: 18px;
+        }
+        
+        #loginBtn {
+            display: none;
+        }
+        /* --- RESPONSIVENESS --- */
+        /* LG Screen (Media Query - 992px) */
+        
+        @media (min-width: 992px) {
+            h1 {
+                font-size: 2.6rem;
+            }
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            label {
+                font-size: 0.9rem;
+            }
+            input {
+                padding: 15px 18px;
+            }
+            button {
+                padding: 16px;
+                margin-top: 20px;
+            }
+        }
+        /* MD to LG transitions and Tablet */
+        
+        @media (max-width: 991px) {
+            .login-left {
+                display: none;
+            }
+            /* Hide image side on tablet/mobile */
+            .login-right {
+                flex: 1;
+                padding: 40px 30px;
+                text-align: center;
+            }
+            label {
+                text-align: left;
+            }
+            .login-main {
+                max-width: 480px;
+                height: auto;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            input {
+                padding: 12px 14px;
+            }
+        }
+        /* Mobile */
+        
+        @media (max-width: 575px) {
+            body {
+                overflow: auto;
+            }
+            /* Allow scrolling on small phones if content overflows */
+            .login-main {
+                width: 95%;
+                height: auto;
+                border-radius: 15px;
+                margin-top: 30px;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+            .login-right {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="background-image"></div>
+
+    <div class="login-main">
+
+        <div class="login-left">
+            <img src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/d446ad61906217.5a7d98bb75817.jpg" alt="Quick Food Delivery">
+            <div class="branding">
+                <h2>Quick Food Delivery</h2>
+                <p>We deliver speed, flavor, and happiness.</p>
+            </div>
+        </div>
+
+        <div class="login-right">
+            <div class="header-content">
+                <h1>Welcome Back</h1>
+                <p class="subtitle">Log in to track your cravings!</p>
+            </div>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="text" id="phone" name="phone" placeholder="Enter your 10-digit number" maxlength="10" required>
+                    <span class="focus-border"></span>
+                </div>
+
+                <div id="otpSection">
+                    <div class="form-group">
+                        <label for="otp">OTP</label>
+                        <input type="text" id="otp" name="otp" placeholder="Enter the 4-digit OTP" maxlength="4" required>
+                        <span class="focus-border"></span>
+                    </div>
+                </div>
+
+                <button type="button" id="getOtpBtn">Get OTP</button>
+                <button type="submit" id="loginBtn">Log In to Eat</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. Interactive Background Animation ---
+        const bgImage = document.getElementById('background-image');
+
+        // Add listener for mouse move
+        document.addEventListener('mousemove', (event) => {
+            // Get screen center
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+
+            // Get mouse position relative to center
+            const mouseX = event.clientX;
+            const mouseY = event.clientY;
+
+            // Calculate movement amount (factor defines subtlety, higher = more subtle)
+            const factor = 25;
+            const moveX = (mouseX - centerX) / factor;
+            const moveY = (mouseY - centerY) / factor;
+
+            // Apply translation for parallax effect. Negative movement gives a depth effect.
+            bgImage.style.transform = `translate(${-moveX}px, ${-moveY}px)`;
+        });
+
+
+        // --- 2. Existing Form Logic Enhanced with Transitions ---
+        const phoneInput = document.getElementById('phone');
+        const otpSection = document.getElementById('otpSection');
+        const otpInput = document.getElementById('otp');
+        const getOtpBtn = document.getElementById('getOtpBtn');
+        const loginBtn = document.getElementById('loginBtn');
+
+        // Event listener for 'Get OTP' button
+        getOtpBtn.addEventListener('click', function() {
+            const phone = phoneInput.value;
+
+            // Check if phone number is 10 digits
+            if (phone.length === 10 && /^[0-9]+$/.test(phone)) {
+
+                // --- Dynamic Button Feedback ---
+                getOtpBtn.innerHTML = 'Verifying...';
+                getOtpBtn.style.pointerEvents = 'none'; // Prevent double clicking
+                getOtpBtn.style.opacity = '0.7';
+
+                // --- Simulate API call delay for dynamic feel ---
+                setTimeout(() => {
+                    // 1. Hide the getOtp button
+                    getOtpBtn.style.display = 'none';
+
+                    // 2. Show the OTP section with smooth CSS animation class
+                    otpSection.style.display = 'block'; // First change display to inline
+                    setTimeout(() => {
+                        otpSection.classList.add('show'); // Then add transition class
+
+                        // 3. Show the login button
+                        loginBtn.style.display = 'block';
+
+                        // 4. Focus on the OTP input for smooth flow
+                        otpInput.focus();
+                    }, 10);
+                }, 1200); // 1.2 second delay
+
+            } else {
+                alert("Please enter a valid 10-digit phone number.");
+                phoneInput.focus();
+                // Optional: visual error feedback on input
+                phoneInput.style.borderColor = '#ff4757';
+                setTimeout(() => {
+                    phoneInput.style.borderColor = 'transparent';
+                }, 1500);
+            }
+        });
+
+        // Event listener for 'Login' button
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const otp = otpInput.value;
+
+            // Basic validation for 4-digit OTP
+            if (otp.length === 4 && /^[0-9]+$/.test(otp)) {
+
+                // Dynamic feedback: change button text
+                loginBtn.innerHTML = 'Authenticating...';
+                loginBtn.style.pointerEvents = 'none';
+                loginBtn.style.opacity = '0.7';
+
+                // Simulate success and then redirect
+                setTimeout(() => {
+                    // Redirect to another HTML page after successful login
+                    window.location.href = "project3.html"; // Replace with your actual next page
+                }, 1000); // 1 second delay
+
+            } else {
+                alert("Please enter a valid 4-digit OTP.");
+                otpInput.focus();
+                otpInput.style.borderColor = '#ff4757';
+                setTimeout(() => {
+                    otpInput.style.borderColor = 'transparent';
+                }, 1500);
+            }
+        });
+    </script>
+</body>
+
+</html>
